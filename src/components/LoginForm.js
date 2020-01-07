@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router } from 'react-router-dom'
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import React from 'react';
 import { useHistory } from "react-router-dom";
+import { Form, Icon, Input, Button, Checkbox } from 'antd';
 
 import axios from '../config/axios'
 
