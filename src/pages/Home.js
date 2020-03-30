@@ -53,7 +53,7 @@ const App = () => {
                   {
                     mindmaps.map((mindmap) => (
                       <Col span={6} key={mindmap.id}>
-                        <Card hoverable bordered={false} style={{ borderRadius: '10px', background: mindmap.backgroundColor || '#5f5', height: '150px' }} onClick={handleCardClick(mindmap.id)}>
+                        <Card hoverable bordered={false} style={{ borderRadius: '10px', background: mindmap.nodes[0].background_color || '#5f5', height: '150px' }} onClick={handleCardClick(mindmap.id)}>
                           <Card.Meta
                             title={mindmap.title}
                             description={mindmap.description}
@@ -62,38 +62,6 @@ const App = () => {
                       </Col>
                     ))
                   }
-                  <Col span={6}>
-                    <Card hoverable bordered={false} style={{ borderRadius: '10px', background: '#f55', height: '150px' }} onClick={handleCardClick(1)}>
-                      <Card.Meta
-                        title="Mindmap 1"
-                        description="Card description"
-                      />
-                    </Card>
-                  </Col>
-                  <Col span={6}>
-                    <Card hoverable bordered={false} style={{ borderRadius: '10px', background: '#5f5', height: '150px' }} onClick={handleCardClick(2)}>
-                      <Card.Meta
-                        title="Mindmap 2"
-                        description="Card description"
-                      />
-                    </Card>
-                  </Col>
-                  <Col span={6}>
-                    <Card hoverable bordered={false} style={{ borderRadius: '10px', background: '#55f', height: '150px' }} onClick={handleCardClick(3)}>
-                      <Card.Meta
-                        title="Mindmap 3"
-                        description="Card description"
-                      />
-                    </Card>
-                  </Col>
-                  <Col span={6}>
-                    <Card hoverable bordered={false} style={{ borderRadius: '10px', background: '#f55', height: '150px' }} onClick={handleCardClick(4)}>
-                      <Card.Meta
-                        title="Mindmap 4"
-                        description="Card description"
-                      />
-                    </Card>
-                  </Col>
                 </Row>
               </Content>
             </Layout>
