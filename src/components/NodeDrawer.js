@@ -2,22 +2,22 @@ import React from 'react';
 import { Drawer, Form, Button, Col, Row, Input } from 'antd';
 import axios from '../config/axios'
 
-const NodeDrawer = ({ mindmap_id, node = { title: '', description: '', background_color: '' }, visible, onClose, form }) => {
+const NodeDrawer = ({ mindmapId, node = { id: '', title: '', description: '', background_color: '' }, visible, onClose, form }) => {
     const { getFieldDecorator } = form;
-    const editing = !!node;
+    const editing = !!node.id;
 
     const handleSubmit = e => {
         e.preventDefault();
         form.validateFields(async (err, { title, description, background_color }) => {
             if (err) return;
             if (editing) {
-                const endpoint = `mindmaps/${mindmap_id}/nodes/${node.id}`;
-                await axios.put(endpoint, { title, description, background_color });
-                onClose();
+                const endpoint = `mindmaps/${mindmapId}/nodes/${node.id}`;
+                let { data } = await axios.put(endpoint, { title, description, background_color });
+                onClose({event: 'updated', node: data.node });
             } else {
-                const endpoint = `mindmaps/${mindmap_id}/nodes`;
-                await axios.post(endpoint, { title, description, background_color });
-                onClose();
+                const endpoint = `mindmaps/${mindmapId}/nodes`;
+                let { data } = await axios.post(endpoint, { title, description, background_color });
+                onClose({event: 'created', node: data.node });
             }
         });
     };

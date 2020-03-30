@@ -119,28 +119,24 @@ const Canvas = ({ mindmap, height = window.innerHeight-45, width = window.innerW
 
     const [nodes, setNodes] = useState([root, ...children, ...hidden]);
 
-    const hideDrawer = () => setVisible(false);
+    const hideDrawer = ({ event='', node }) => {
+        console.log({ event, node })
+        if (event === 'created') {
+            setNodes([...nodes, node])
+        } else if (event === 'updated') {
+            let index = nodes.findIndex(n => n.id === node.id)
+            console.log(index)
+            nodes[index] = { ...node }
+            setNodes(nodes)
+        }
+        setVisible(false);
+    }
 
     const handleNodeClick = (node) => {
         if (node.position === 'center') {
             setSelectedNode(node)
             setVisible(true)
         } else {
-            // const parent = nodes.find(n => n.id === node.parent_id)
-            // const children = getNodeChildren(node).map(n => { return { ...n, position: 'child' } });
-
-            // let showedNodes = [node, ...children]
-            // if (parent) {
-                // parent.position = 'main'
-                // showedNodes.push(parent)
-            // }
-
-            // const hidden = getHiddenChildren([...(showedNodes.map(c => c.id))]).map(node => { return { ...node, position: 'hidden' } });
-            // node.position = 'center'
-
-            // setNodes([...showedNodes, ...hidden])
-            // let parent = null
-            // let showedNodes = [node]
             let res = nodes.map(n => {
                 n.position = 'hidden'
                 if (n.id === node.id) {
@@ -154,35 +150,16 @@ const Canvas = ({ mindmap, height = window.innerHeight-45, width = window.innerW
                 }
                 return n
             })
-            // for (let n of nodes) {
-            //     n.position = 'hidden'
-            //     if (n === node.id) {
-            //         node.position = 'center'
-            //     }
-            //     if (n.id === node.parent_id) {
-            //         n.position = 'main'
-            //     }
-            //     if (n.parent_id == node.id) {
-            //         n.position = 'child'
-            //     }
-            // }
             setNodes(res)
         }
     }
 
-    // let node = mindmap.nodes[0];
-    // let config = configs[node.position];
-
     return (
         <div>
-            <NodeDrawer node={selectedNode} visible={visible} onClose={hideDrawer}></NodeDrawer>
+            <NodeDrawer mindmapId={mindmap.id} node={selectedNode} visible={visible} onClose={hideDrawer}></NodeDrawer>
 
             <Stage width={width} height={height}>
                 <Layer>
-                    {/* { ()=> ( mainNode ? <Node node={centerNode} onClick={handleNodeClick} /> : '' ) } */}
-
-                    {/* <Node node={centerNode} onClick={handleNodeClick} /> */}
-
                     {
                         nodes.map(node => {
                             let siblings = nodes.filter(n => n.parent_id === node.parent_id)
