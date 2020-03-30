@@ -98,7 +98,7 @@ const Node = ({ node, onClick, index, numberOfChildren }) => {
                 return (
                     <Group onClick={(e) => handleClick(e, node)}>
                         <animated.Circle {...circleProps} nodeId={node.id} />
-                        <animated.Text text={node.title} padding={20} strokeWidth={900} fill="red" nodeId={node.id} {...textProps} />
+                        <animated.Text text={node.title} padding={20} strokeWidth={900} fill="white" nodeId={node.id} {...textProps} />
                     </Group>
                 )
             }}
