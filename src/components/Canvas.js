@@ -5,7 +5,7 @@ import { Spring, animated } from 'react-spring/renderprops-konva';
 import NodeDrawer from './NodeDrawer';
 
 const CANVAS_WIDTH = window.innerWidth;
-const CANVAS_HEIGHT = window.innerHeight-45;
+const CANVAS_HEIGHT = window.innerHeight;
 
 const MAIN_NODE_CX = 50;
 const MAIN_NODE_CY = 50;
@@ -70,9 +70,9 @@ const Node = ({ node, onClick, index, numberOfChildren }) => {
     const handleClick = (e, node) => onClick(node)
 
     if (node.position === 'hidden') return (<></>)
-    const config = {...configs[node.position]}
+    const config = { ...configs[node.position] }
     if (node.position === 'child') {
-        let angle = (360/numberOfChildren)*index*radianAux
+        let angle = (360 / numberOfChildren) * index * radianAux
         let auxX = CENTER_NODE_CX + CHILDREN_DISPLACEMENT * Math.cos(angle)
         let auxY = CENTER_NODE_CY + CHILDREN_DISPLACEMENT * Math.sin(angle)
         config.x = auxX
@@ -106,7 +106,7 @@ const Node = ({ node, onClick, index, numberOfChildren }) => {
     );
 }
 
-const Canvas = ({ mindmap, height = window.innerHeight-45, width = window.innerWidth }) => {
+const Canvas = ({ mindmap, height = window.innerHeight - 45, width = window.innerWidth }) => {
     const getRootNode = mindmap => mindmap && mindmap.nodes ? mindmap.nodes.find(child => !child.parent_id) : {};
     const getNodeChildren = node => mindmap && mindmap.nodes ? mindmap.nodes.filter(child => child.parent_id === node.id) : [];
     const getHiddenChildren = (showedNodesIds) => mindmap.nodes.filter(child => !showedNodesIds.includes(child.id));
