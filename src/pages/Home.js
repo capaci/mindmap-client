@@ -6,11 +6,13 @@ import './Home.css'
 import axios from '../config/axios';
 
 import AppHeader from '../components/AppHeader';
+import MindmapDrawer from '../components/MindmapDrawer';
 
 const { Content, Footer } = Layout;
 
 const App = () => {
   const [mindmaps, setMindmaps] = useState([]);
+  const [visible, setVisible] = useState(false);
 
   const history = useHistory();
 
@@ -22,6 +24,14 @@ const App = () => {
   const handleCardClick = (id) => (e) => {
     e.preventDefault()
     history.push(`mindmaps/${id}`);
+  }
+
+  const hideDrawer = ({ event = '', mindmap }) => {
+    console.log({ event, mindmap })
+    if (event === 'created') {
+      setMindmaps([...mindmaps, mindmap])
+    }
+    setVisible(false);
   }
 
   const getMindmaps = () => {
@@ -44,6 +54,8 @@ const App = () => {
 
       <AppHeader></AppHeader>
 
+      <MindmapDrawer visible={visible} onClose={hideDrawer}></MindmapDrawer>
+
       <Content style={{ paddingTop: '50px', minHeight: 'calc(100vh - 133px)' }}>
         <Row align="middle" justify="center" type="flex">
           <Col span={16}>
@@ -62,6 +74,15 @@ const App = () => {
                       </Col>
                     ))
                   }
+                  < Col span={6}>
+                    <Card hoverable bordered={false} style={{ borderRadius: '10px', background: '#dedede', height: '150px' }} onClick={() => setVisible(true)}>
+                      <Card.Meta
+                        title="+"
+                        description="Create mindmap"
+                        style={{ display: "flex", direction: "column", alignItems: "center", justifyContent: "center", textAlign: "center", color: "#fff !important" }}
+                      />
+                    </Card>
+                  </Col>
                 </Row>
               </Content>
             </Layout>
@@ -69,8 +90,6 @@ const App = () => {
         </Row>
       </Content>
       <Footer style={{ textAlign: 'center' }}>Mindmap ©2020 Created by Rafael Capaci</Footer>
-
-
     </Layout>
   );
 }
