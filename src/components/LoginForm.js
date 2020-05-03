@@ -1,6 +1,6 @@
 import React from 'react';
 import { useHistory } from "react-router-dom";
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import { Form, Icon, Input, Button } from 'antd';
 
 import axios from '../config/axios'
 
@@ -23,6 +23,7 @@ const LoginForm = (props) => {
       <Form.Item>
         {getFieldDecorator('email', {
           rules: [{ required: true, message: 'Please input your email!' }],
+          initialValue: 'user@test.me'
         })(
           <Input
             prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
@@ -33,6 +34,7 @@ const LoginForm = (props) => {
       <Form.Item>
         {getFieldDecorator('password', {
           rules: [{ required: true, message: 'Please input your Password!' }],
+          initialValue: 'user'
         })(
           <Input
             prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
@@ -42,10 +44,6 @@ const LoginForm = (props) => {
         )}
       </Form.Item>
       <Form.Item>
-        {getFieldDecorator('remember', {
-          valuePropName: 'checked',
-          initialValue: true,
-        })(<Checkbox className="login-form-remember" >Remember me</Checkbox>)}
         <a className="login-form-forgot" href="/">
           Forgot password
             </a>
