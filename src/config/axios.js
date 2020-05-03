@@ -10,7 +10,7 @@ const setTokenInterceptor = (config) => {
     return config;
 }
 
-axios.defaults.baseURL = 'http://localhost:3333';
+axios.defaults.baseURL = process.env.REACT_APP_API_URL || 'http://localhost:3333';
 
 axios.interceptors.request.use(setTokenInterceptor);
 
